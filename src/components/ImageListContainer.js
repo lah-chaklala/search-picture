@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
+import CustomPagination from './CustomPagination';
+import CustomImageList from './CustomImageList';
+
 import { searchPicturesByTerm } from '../api/Pictures';
 
+function ImageListContainer({ searchTerm }) {  
 
-function ImageListContainer() {  
-  
-    const [termSearch, setTermSearch] = useState('');
-  
-    function searchTermHandler(newTerm) {
-      console.log('term ', newTerm);
-      setTermSearch(newTerm);
+    const getData = async (page, itemPerPage) => {
+        const { numberOfPictures, pictures } = await searchPicturesByTerm(searchTerm, page, itemPerPage);
+        return { numberOfItems: numberOfPictures, items: pictures };
     }
-  
+
     return (
-      <Container>
-      </Container>
+        <CustomPagination getData={getData} renderPage={(items) => <CustomImageList images={items}/>} withSelector={true}/>
     );
   }
   

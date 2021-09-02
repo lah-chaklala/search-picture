@@ -1,24 +1,43 @@
+import React, { useState } from "react";
+import {
+  Container,
+  IconButton,
+  InputAdornment,
+} from "@material-ui/core";
+import { Search } from "@material-ui/icons";
 
-import React, { useState } from 'react';
-import { Container } from '@material-ui/core';
+import DelayedInputText from "./DelayedInputText";
+import ImageListContainer from "./ImageListContainer";
 
-import DelayedInputText from './DelayedInputText';
-import ImageListContainer from './ImageList';
-
-
-function SearchContainer() {  
-  
-  const [termSearch, setTermSearch] = useState('');
+function SearchContainer() {
+  const [searchTerm, setSearchTerm] = useState("");
 
   function searchTermHandler(newTerm) {
-    console.log('term ', newTerm);
-    setTermSearch(newTerm);
+    console.log("term ", newTerm);
+    setSearchTerm(newTerm);
   }
 
   return (
     <Container>
-        <DelayedInputText name='Search term' value={termSearch} onChange={searchTermHandler} fullWidth />
-        <ImageListContainer searchTerm={termSearch}/>
+      <h1>photo search engine</h1>
+      <DelayedInputText
+        name="Search term"
+        value={searchTerm}
+        onChange={searchTermHandler}
+        fullWidth
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="search">
+                <Search />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+      />
+      {/* <Divider /> */}
+
+      <ImageListContainer searchTerm={searchTerm} />
     </Container>
   );
 }
