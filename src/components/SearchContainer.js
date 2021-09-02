@@ -2,24 +2,23 @@
 import React, { useState } from 'react';
 import { Container } from '@material-ui/core';
 
-import SearchBar from './SearchBar';
-import ImageList from './ImageList';
+import DelayedInputText from './DelayedInputText';
+import ImageListContainer from './ImageList';
+
 
 function SearchContainer() {  
   
   const [termSearch, setTermSearch] = useState('');
-  const [images, setImages] = useState([]);
-  
+
   function searchTermHandler(newTerm) {
-    console.log(newTerm);
+    console.log('term ', newTerm);
     setTermSearch(newTerm);
-    
   }
 
   return (
     <Container>
-        <SearchBar name='Search term' value={termSearch} onChange={(event) => searchTermHandler(event.target.value)} fullWidth />
-        <ImageList images={images}/>
+        <DelayedInputText name='Search term' value={termSearch} onChange={searchTermHandler} fullWidth />
+        <ImageListContainer searchTerm={termSearch}/>
     </Container>
   );
 }

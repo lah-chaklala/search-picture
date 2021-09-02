@@ -1,10 +1,10 @@
 
 import { TextField } from '@material-ui/core';
 
-function SearchBar({ name, ...resProp }) {  
+function InputText({ name, ...resProp }) {  
   return (
     <TextField id={name} label={name} {...resProp}/>
   );
 }
 
-export default SearchBar;
+export default InputText;
