@@ -3,6 +3,7 @@ import { Pagination } from "@material-ui/lab";
 import { Grid, Divider } from "@material-ui/core";
 
 import CustomSelector from "./CustomSelector";
+import usePagination from "../hooks/usePagination";
 
 function CustomPagination({
   withSelector,
@@ -10,19 +11,9 @@ function CustomPagination({
   getData,
   renderPage,
 }) {
-  const [itemPerPage, setItemPerPage] = useState(numberOfItemPerPage);
-  const [itemsOfPage, setItemsOfPage] = useState([]);
-  const [page, setPage] = useState(1);
-  const [numberOfItem, setNumberOfItem] = useState(0);
-
-  useEffect(() => {
-    (async () => {
-      const { numberOfItems, items } = await getData(page, itemPerPage);
-      setItemsOfPage(items);
-      setNumberOfItem(numberOfItems);
-    })();
-  }, [page, itemPerPage, getData]);
-
+  
+  const {itemPerPage, page, itemsOfPage, numberOfItem, loading, setItemPerPage, setPage} = usePagination(getData, 1, numberOfItemPerPage);
+  
   let rowsPerPageOptions;
 
   if (withSelector) {
@@ -80,7 +71,9 @@ function CustomPagination({
         
         <Grid item xs={12}>          
           <Divider />
-          {renderPage(itemsOfPage)}
+          {
+            loading ? <p> loading </p> : renderPage(itemsOfPage)
+          }
         </Grid>
         </React.Fragment>
       }

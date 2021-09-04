@@ -16,7 +16,6 @@ function DelayedInputText({ delayedTime, value, onChange, ...resProp }) {
   }, [typedValue, onChange, delayedTime]);
 
   function onChangeHandler(newValue) {
-    console.log('value ', newValue);
     setTypedValue(newValue);
   }
 
