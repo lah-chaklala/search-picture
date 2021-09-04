@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function usePagination(getData, initialPage=1, initialNumberOfItemPerPage=10) {
     const [itemPerPage, setItemPerPage] = useState(initialNumberOfItemPerPage);
@@ -6,7 +6,7 @@ function usePagination(getData, initialPage=1, initialNumberOfItemPerPage=10) {
     const [page, setPage] = useState(initialPage);
     const [numberOfItem, setNumberOfItem] = useState(0);
     const [loading, setLoading] = useState(false);
-  
+
     useEffect(() => {
       (async () => {
         setLoading(true);
@@ -17,7 +17,7 @@ function usePagination(getData, initialPage=1, initialNumberOfItemPerPage=10) {
       })();
     }, [page, itemPerPage, getData]);
 
-    return {itemPerPage, page, itemsOfPage, numberOfItem, loading, setItemPerPage, setPage};
+    return { itemPerPage, page, itemsOfPage, numberOfItem, loading, setItemPerPage, setPage };
 }
 
 export default usePagination;

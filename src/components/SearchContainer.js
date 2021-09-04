@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import {
-  Container,
-  IconButton,
-  InputAdornment,
-} from "@material-ui/core";
+import React, { useState, useCallback } from "react";
+import { Container, IconButton, InputAdornment } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 
 import DelayedInputText from "./DelayedInputText";
@@ -17,13 +13,15 @@ function SearchContainer() {
     setSearchTerm(newTerm);
   }
 
+  const searchTermHandlerCallBack = useCallback(searchTermHandler, []);
+
   return (
     <Container>
       <h1>photo search engine</h1>
       <DelayedInputText
         name="Search term"
         value={searchTerm}
-        onChange={searchTermHandler}
+        onChange={searchTermHandlerCallBack}
         fullWidth
         InputProps={{
           endAdornment: (

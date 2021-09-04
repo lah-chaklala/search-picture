@@ -17,14 +17,20 @@ export const searchPicturesByTerm = async (term, page=1, per_page=10) => {
     }
 
     let res;
-    res = await axiosPictures.get('/search/photos', {
-        params: { 
-            query: term,
-            page: page,
-            per_page: per_page,
-        }
-    });
+    try {
+        res = await axiosPictures.get('/search/photos', {
+            params: { 
+                query: term,
+                page: page,
+                per_page: per_page,
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        return { numberOfPictures: 0, pictures: [] };
+    }
+
     
-    console.log(term, page, per_page, res.data.total);
-    return {numberOfPictures: res.data.total, pictures: res.data.results };
+    console.log('API call pictures ', term, page, per_page, res.data.total);
+    return { numberOfPictures: res.data.total, pictures: res.data.results };
 };
